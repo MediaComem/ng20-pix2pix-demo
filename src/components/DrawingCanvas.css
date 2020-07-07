@@ -5,7 +5,7 @@ canvas {
 }
 
 .drawingcanvas {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
