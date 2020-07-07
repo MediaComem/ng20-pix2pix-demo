@@ -32,8 +32,8 @@ const initialState = {
 };
 
 export function modelReducer(state = initialState, action) {
+  console.log(action)
   const {type, payload} = action;
-  
   switch (type) {
     case SELECT_MODEL:
       return {

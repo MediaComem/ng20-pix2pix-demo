@@ -21,9 +21,9 @@ h1{
 }
 
 main {
-  width: 100%;
-  margin-left:10px;
-  margin-right:10px;
+  width: calc(100% - 20px);
+  padding-left:10px;
+  padding-right:10px;
   display:flex;
   flex-direction: row;
 }

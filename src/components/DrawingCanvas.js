@@ -34,8 +34,10 @@ export const DrawingCanvas = (props) => {
   useEffect(() => {
     if (!CANVAS.current) {
       return;
-    }
+    }    
     setCurrCanvas(CANVAS.current);
+    
+    clear(CANVAS.current, CANVAS_SIZE, CANVAS_SIZE);
   }, []);
 
   useEffect(() => {
@@ -56,6 +58,7 @@ export const DrawingCanvas = (props) => {
           setIsMouseDown(false);
           props.onCanvasDrawingChange && props.onCanvasDrawingChange(currCanvas);
         }}
+        onMouseLeave={e => setIsMouseDown(false)}
         onMouseMove={(e) => {
           const newMousePos = getMousePosFromCanvas(currCanvas, e);
           if (isMouseDown) {

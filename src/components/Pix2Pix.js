@@ -48,8 +48,19 @@ const Pix2PixConnected = (props) => {
         </button>
       </div>
       <div className="pix2pix-processed">
-        {processedImgURL.isFetching && 'Loading...'}
-        {processedImgURL.error && processedImgURL.error}
+        {processedImgURL.isFetching && (
+          <div className="pix2pix-processed-info">'Loading...'</div>
+        )}
+        
+        {processedImgURL.error &&
+          (typeof processedImgURL.error === 'string' ? (
+            processedImgURL.error
+          ) : (
+            <div className="pix2pix-processed-info">
+              'An unknown error happened'
+            </div>
+          ))}
+
         {processedImgURL.url && (
           <img src={processedImgURL.url} alt="processed img" />
         )}
