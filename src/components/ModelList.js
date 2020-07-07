@@ -18,14 +18,15 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const ConnectedModelList = ({
-  modelList,
-  isLoadingModelList,
-  modelListLoadingFailedError,
-  selectedModel,
-  selectModel,
-  loadModelList
-}) => {
+const ConnectedModelList = (props) => {
+  const {
+    modelList,
+    isLoadingModelList,
+    modelListLoadingFailedError,
+    selectedModel,
+    selectModel,
+    loadModelList
+  } = props;
   useEffect(() => {
     loadModelList();
   }, [loadModelList]);
@@ -39,11 +40,10 @@ const ConnectedModelList = ({
   }
 
   return (
-    <ul>
+    <ul id={props.id} className={props.className}>
       {modelList.map((model) => (
-        <li key={model.id}>
-          {model.name}{' '}
-          <button onClick={() => selectModel(model)}>select</button>
+        <li key={model.id} className={selectedModel?.id === model.id ? 'active' : ''}>
+          <button onClick={() => selectModel(model)}>{model.name}</button>
         </li>
       ))}
     </ul>

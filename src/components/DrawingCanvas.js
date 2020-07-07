@@ -1,3 +1,4 @@
+import './DrawingCanvas.css'
 import React, { useRef, useEffect, useState } from 'react';
 
 const getMousePosFromCanvas = (canvas, e) => {
@@ -45,7 +46,7 @@ export const DrawingCanvas = (props) => {
   }, [props.currCanvas]);
 
   return (
-    <div id={props.id} className={props.className}>
+    <div id={props.id} className={`drawingcanvas ${props.className}`}>
       <canvas
         ref={CANVAS}
         width={CANVAS_SIZE}

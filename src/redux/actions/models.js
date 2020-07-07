@@ -21,9 +21,13 @@ const fetchModelList = () =>
             id: 1,
             name: 'edges2cat',
             url: 'models/edges2cats_AtoB.pict'
+          },{
+            id: 2,
+            name: 'pikachu',
+            url: 'models/edges2pikachu.pict'
           }
         ]),
-      1000
+      50
     );
   });
 

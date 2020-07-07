@@ -1,0 +1,26 @@
+.pix2pix {
+  display:grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: 
+    "title  title"
+    "canvas processed"
+    "action action";
+  row-gap: 15px;
+}
+
+.pix2pix-title {
+  grid-area: title;
+}
+
+.pix2pix-canvas {
+  grid-area: canvas;
+}
+
+.pix2pix-action {
+  grid-area: action;
+}
+
+.pix2pix-processed {
+  grid-area: processed;
+}
