@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ng20-pix2pix-demo/precache-manifest.d71571760651e26f89191c706ac11897.js"
+  "/ng20-pix2pix-demo/precache-manifest.614e8dc29e66ab400cf2ca74557ec58f.js"
 );
 
 self.addEventListener('message', (event) => {
