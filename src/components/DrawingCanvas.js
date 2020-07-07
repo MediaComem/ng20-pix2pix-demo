@@ -6,43 +6,72 @@ const getMousePosFromCanvas = (canvas, e) => {
     x: e.clientX - rect.left,
     y: e.clientY - rect.top
   };
-}
+};
 
-const draw = (canvas,e) => {
-  const {x,y} = getMousePosFromCanvas(canvas, e);
-  const ctx = canvas.getContext("2d");
+const clear = (canvas, canvasWidth, canvasHeight) => {
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+};
+
+const draw = (canvas, lastMousePos, currMousePos) => {
+  const ctx = canvas.getContext('2d');
 
   ctx.beginPath();
-  ctx.arc(x, y, 1, 0, 2 * Math.PI);
-  ctx.stroke()
-  // canvas.beginPath();
-  // canvas.moveTo(x, mouseY);
-  // canvas.lineTo(pX, pY);
-  // canvas.stroke();
-}
+  ctx.moveTo(lastMousePos.x, lastMousePos.y);
+  ctx.lineTo(currMousePos.x, currMousePos.y);
+  ctx.stroke();
+};
 
-export const DrawingCanvas = props => {
+export const DrawingCanvas = (props) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [currCanvas, setCurrCanvas] = useState(null);
-  const CANVAS_SIZE = 512
-  const CANVAS = useRef(null)
-  
-  useEffect(()=>{
-    if(!CANVAS.current){
+  const [currMousePos, setCurrMousePos] = useState({ x: null, y: null });
+  const CANVAS_SIZE = 512;
+  const CANVAS = useRef(null);
+
+  useEffect(() => {
+    if (!CANVAS.current) {
       return;
     }
     setCurrCanvas(CANVAS.current);
+  }, []);
 
-  }, [isMouseDown])
-  
+  useEffect(() => {
+    if (props.currCanvas) {
+      setCurrCanvas(props.currCanvas);
+      return;
+    }
+  }, [props.currCanvas]);
+
   return (
-    <canvas
-      ref={CANVAS}
-      width={CANVAS_SIZE}
-      height={CANVAS_SIZE}
-      onMouseDown={()=>setIsMouseDown(true)}
-      onMouseUp={()=>setIsMouseDown(false)}
-      onMouseMove={(e) => isMouseDown && currCanvas ? draw(currCanvas,e) : null}
-    />
+    <div id={props.id} className={props.className}>
+      <canvas
+        ref={CANVAS}
+        width={CANVAS_SIZE}
+        height={CANVAS_SIZE}
+        onMouseDown={() => setIsMouseDown(true)}
+        onMouseUp={() => {
+          setIsMouseDown(false);
+          props.onCanvasDrawingChange && props.onCanvasDrawingChange(currCanvas);
+        }}
+        onMouseMove={(e) => {
+          const newMousePos = getMousePosFromCanvas(currCanvas, e);
+          if (isMouseDown) {
+            draw(currCanvas, currMousePos, newMousePos);
+          }
+          setCurrMousePos(newMousePos);
+        }}
+      />
+      <button
+        onClick={() => {
+          clear(currCanvas, CANVAS_SIZE, CANVAS_SIZE);
+          props.onCanvasDrawingChange &&
+            props.onCanvasDrawingChange(currCanvas);
+        }}
+      >
+        Clear
+      </button>
+    </div>
   );
 };

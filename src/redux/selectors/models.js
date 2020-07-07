@@ -1,9 +1,8 @@
-import stores from "../stores"
-
 export const getModelState = store => store.models;
 
-export const getModelList = store => 
-  getModelState(store) ? getModelState(store).modelList : [];
+export const getCurrentModel = store => 
+  getModelState(store) ? getModelState(store).selectedModel : null
 
-export const getCurrentSelectedModel = store => 
-  getModelState(store) ? getModelState(store).selectedModelID : 0
+export const getCurrentCanvas = store => 
+  getModelState(store) ? getModelState(store).currCanvas : null
+
