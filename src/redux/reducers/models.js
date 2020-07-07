@@ -16,9 +16,9 @@ const initialState = {
   modelList: []
 };
 
-export default function (state = initialState, action) {
-  const [type, payload] = action;
-
+export function modelReducer(state = initialState, action) {
+  const {type, payload} = action;
+  
   switch (type) {
     case SELECT_MODEL:
       return {

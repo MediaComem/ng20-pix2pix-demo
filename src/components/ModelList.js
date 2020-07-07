@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { loadModelList, selectModel } from '../redux/actions/models';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ modelReducer }) => {
   return {
-    modelList: state.modelList,
-    isLoadingModelList: state.isLoadingModelList,
-    modelListLoadingFailedError: state.modelListLoadingFailedError,
-    selectedModelID: state.selectedModelID
+    modelList: modelReducer.modelList,
+    isLoadingModelList: modelReducer.isLoadingModelList,
+    modelListLoadingFailedError: modelReducer.modelListLoadingFailedError,
+    selectedModelID: modelReducer.selectedModelID
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadModelList: () => dispatch(loadModelList()),
+    selectModel: (id)=> dispatch(selectModel(id))
   };
 };
 
@@ -14,8 +22,14 @@ const ConnectedModelList = ({
   modelList,
   isLoadingModelList,
   modelListLoadingFailedError,
-  selectedModelID
+  selectedModelID,
+  selectModel,
+  loadModelList
 }) => {
+  useEffect(() => {
+    loadModelList();
+  }, [loadModelList]);
+
   if (isLoadingModelList) {
     return <div>loading....</div>;
   }
@@ -28,12 +42,15 @@ const ConnectedModelList = ({
     <ul>
       {modelList.map((model) => (
         <li key={model.id}>
-          {model.title}{' '}
-          <button onClick={() => console.log(model)}>select</button>
+          {model.name}{' '}
+          <button onClick={() => selectModel(model.id)}>select</button>
         </li>
       ))}
     </ul>
   );
 };
 
-export const ModelList = connect(mapStateToProps)(ConnectedModelList);
+export const ModelList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConnectedModelList);

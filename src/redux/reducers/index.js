@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
-import * as models from './models';
+import { modelReducer } from './models';
 
-export default combineReducers({ models });
+export default combineReducers({
+  modelReducer
+});
