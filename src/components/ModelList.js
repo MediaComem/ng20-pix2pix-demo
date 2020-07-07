@@ -7,7 +7,7 @@ const mapStateToProps = ({ modelReducer }) => {
     modelList: modelReducer.modelList,
     isLoadingModelList: modelReducer.isLoadingModelList,
     modelListLoadingFailedError: modelReducer.modelListLoadingFailedError,
-    selectedModelID: modelReducer.selectedModelID
+    selectedModel: modelReducer.selectedModel
   };
 };
 
@@ -22,7 +22,7 @@ const ConnectedModelList = ({
   modelList,
   isLoadingModelList,
   modelListLoadingFailedError,
-  selectedModelID,
+  selectedModel,
   selectModel,
   loadModelList
 }) => {
@@ -43,7 +43,7 @@ const ConnectedModelList = ({
       {modelList.map((model) => (
         <li key={model.id}>
           {model.name}{' '}
-          <button onClick={() => selectModel(model.id)}>select</button>
+          <button onClick={() => selectModel(model)}>select</button>
         </li>
       ))}
     </ul>

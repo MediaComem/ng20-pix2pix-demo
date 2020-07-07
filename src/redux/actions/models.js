@@ -27,6 +27,6 @@ export const loadModelList = () => {
   };
 };
 
-export const selectModel = (id) => {
-  return { type: SELECT_MODEL, payload: { id } };
+export const selectModel = (model) => {
+  return { type: SELECT_MODEL, payload: model };
 };

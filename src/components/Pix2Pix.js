@@ -1,15 +1,33 @@
-import React from "react";
+import React, {  } from "react";
+import { connect } from 'react-redux';
+import { } from '../redux/actions/models';
+import { DrawingCanvas } from "./DrawingCanvas";
 
-export const Pix2Pix = (props) => {
+const mapStateToProps = ({ modelReducer }) => {
+  return {
+    selectedModel: modelReducer.selectedModel
+  };
+};
 
-  // if(!isModelLoaded){
-  //   return <div>Model is Loading</div>
-  // }
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+};
+
+const Pix2PixConnected = (props) => {
+  
+  const {selectedModel} = props 
+  
+  if(!selectedModel){
+    return <div>No model selected...</div>
+  }
+  
 
   return (
     <div>
+      <div><h3>Current Model: {selectedModel.name}</h3></div>
       <div>
-        <canvas></canvas>
+        <DrawingCanvas />
       </div>
       <div>
         <button onClick={e=>console.log("processing")}>Process</button>
@@ -18,3 +36,5 @@ export const Pix2Pix = (props) => {
     </div>
   );
 };
+
+export const Pix2Pix = connect(mapStateToProps, mapDispatchToProps)(Pix2PixConnected)

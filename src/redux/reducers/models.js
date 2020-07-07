@@ -8,7 +8,7 @@ import {
 } from '../actionsTypes';
 
 const initialState = {
-  selectedModelID: 0,
+  selectedModel: null,
   isLoadingModel: false,
   isLoadingModelList: false,
   modelLoadingFailedError: null,
@@ -23,7 +23,7 @@ export function modelReducer(state = initialState, action) {
     case SELECT_MODEL:
       return {
         ...state,
-        selectedModelID: payload.id
+        selectedModel: payload
       };
 
     case LOAD_MODEL_LIST:
